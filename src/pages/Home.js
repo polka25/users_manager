@@ -6,6 +6,7 @@ const Home = () => {
   return (
     <Card>
       <Table/>
+      <p>Hello</p>
     </Card>
   );
 };
