@@ -9,11 +9,11 @@ import classes from "./MainHeader.module.css";
 
 const MainHeader = () => {
   return (
-    <div className={classes.header}>
+    <div className={classes.root}>
       <AppBar position="static">
-        <Toolbar>
-          <h1 className={classes.logo}>Users Manager</h1>
-          <div className={classes.navigation}>
+        <Toolbar >
+          <h1 className={classes.title}>Users Manager</h1>
+          <div>
             <Button startIcon={<HomeIcon />} component={Link} to="/home">
               Home
             </Button>
