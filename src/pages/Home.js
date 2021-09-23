@@ -1,11 +1,11 @@
 import React from "react";
 import Card from '../components/UI/Card';
-import Table from '../components/Table/Table';
+import UsersTable from '../components/Table/UsersTable';
 
 const Home = () => {
   return (
     <Card>
-      <Table/>
+      <UsersTable/>
       <p>Hello</p>
     </Card>
   );
