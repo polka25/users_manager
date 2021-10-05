@@ -14,7 +14,7 @@ const MainHeader = () => {
         <Toolbar >
           <h1 className={classes.title}>Users Manager</h1>
           <div>
-            <Button startIcon={<HomeIcon />} component={Link} to="/home">
+            <Button startIcon={<HomeIcon />} component={Link} to="/">
               Home
             </Button>
             <Button startIcon={<AddIcon />} component={Link} to="/adduser">
