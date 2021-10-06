@@ -9,7 +9,6 @@ import BasicCard from "./UI/Card";
 
 const isNotEmpty = (value) => value.trim() !== "";
 const isEmail = (value) => value.trim() !== "" && value.includes("@");
-const isButtonActive = "";
 
 const UserForm = (props) => {
   const {
@@ -71,13 +70,7 @@ const UserForm = (props) => {
     props.onSubmit(newUser);
   };
 
-  const labels = [
-    "First name",
-    "Last name",
-    "Email",
-    "Website",
-    "Company name",
-  ];
+  const labels = ["Username", "Name", "Email", "Website", "Company name"];
 
   return (
     // <BasicCard>
@@ -113,7 +106,7 @@ const UserForm = (props) => {
         <TextField
           required
           id="name"
-          label="Last name"
+          label="Name"
           variant="standard"
           value={nameValue}
           onChange={nameChangedHandler}
@@ -149,9 +142,7 @@ const UserForm = (props) => {
         onChange={companyNameChangeHandler}
         onBlur={companyNameBlurHandler}
       />
-      <Button type="submit" isActive>
-        Add user
-      </Button>
+      <Button type="submit">Add user</Button>
     </Box>
     // </BasicCard>
   );

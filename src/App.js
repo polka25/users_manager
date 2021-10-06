@@ -67,14 +67,8 @@ function App() {
 
   const addUserHandler = async (newUser) => {
     try {
-      console.log("New user ready to be pushed:");
-      console.log(newUser);
       const response = await api.post("/users/", newUser);
-      console.log("response");
-      console.log(response.data);
       const allUsers = [...users, response.data];
-      console.log("All users:");
-      console.log(allUsers);
       setUsers(allUsers);
       setSnackbarType(snackBarData.userAdded);
       setOpen(true);
@@ -86,25 +80,28 @@ function App() {
     }
   };
 
-  const deleteUserHandler = ()=>{console.log('delete him!')};
-
-  // const addUserHandler=(props)=>{console.log('rops from addUserHandler:');
-  // console.log(props);};
-
-  // console.log(users);
-  // props.onTableLoad(users);
-
-  // const dataLoadHandler = (data) => {
-  //   console.log("Data from the App");
-  //   console.log(data);
-  // };
+  const deleteUserHandler = async (name) => {
+    try {
+      await api.delete(`/users/${name}`);
+      const usersList = users.filter((user) => user.name !== name);
+      setUsers(usersList);
+      history.push("/");
+    } catch (err) {
+      console.log(`Error:${err.message}`);
+    }
+  };
 
   return (
     <div>
       <MainHeader />
       <main>
         <Route path="/" exact>
-          <Home users={users} isLoading={isLoading} error={error} onDelete={deleteUserHandler}/>
+          <Home
+            users={users}
+            isLoading={isLoading}
+            error={error}
+            onDelete={deleteUserHandler}
+          />
           {open && (
             <CustomSnackbars
               status={open}
@@ -112,6 +109,7 @@ function App() {
               onClose={handleClose}
             />
           )}
+          <button onClick={() => deleteUserHandler(1)}>Delete user</button>
         </Route>
         <Route path="/adduser">
           <AddUser users={users} onAddUser={addUserHandler} />
