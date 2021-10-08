@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Card from "../../UI/Card";
 import UserForm from "../../UserForm";
-import {fetchUser, editUser} from '../../../api/api';
+import {fetchUser} from '../../../api/api';
 
 const EditUser = (props) => {
   const [editedUser, setEditedUser] = useState("");
@@ -15,19 +15,9 @@ const EditUser = (props) => {
 useEffect(()=>{if(userId){
   fetchUser(userId).then(response=>{
     setEditedUser(response.data);
-//     const {user}=response;
-//     console.log(user)
-// ;    const setEditedUser(user);
   }).catch(error=>{console.error(error);});
 };},[userId]);
 
-
-
-  // useEffect(() => {
-  //   const filteredUser = props.users.filter((user) => user.id.toString() === userId);
-  //   console.log(filteredUser);
-  //   setEditedUser(filteredUser);
-  // }, [props.users, userId]);
 
   console.log("edited user");
   console.log(editedUser);

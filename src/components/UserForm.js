@@ -4,20 +4,17 @@ import TextField from "@mui/material/TextField";
 import useInput from "../hooks/useInput/UseInput";
 import Button from "@material-ui/core/Button";
 import ValidationTextFields from "../components/common/customValidationTextFields/CustomValidationTextFields";
-// import users from "../api/users";
 
 const isNotEmpty = (value) => value.trim() !== "";
 const isEmail = (value) => value.trim() !== "" && value.includes("@");
 
 const UserForm = (props) => {
-
-console.log(props)
+  console.log(props);
 
   const defaultUserData = props.editedUser;
   console.log("editedUser:");
   console.log(props.editedUser);
   console.log(defaultUserData);
-
 
   const {
     value: nameValue,
@@ -58,17 +55,23 @@ console.log(props)
           suite: defaultUserData.address.suite,
           city: defaultUserData.address.city,
           zipcode: defaultUserData.address.zipcode,
-          geo: { lat: defaultUserData.address.geo.lat, lng: defaultUserData.address.geo.lat },
+          geo: {
+            lat: defaultUserData.address.geo.lat,
+            lng: defaultUserData.address.geo.lat,
+          },
         },
         phone: defaultUserData.phone,
         website: websiteValue,
-        company: { name: companyNameValue, catchPhrase: defaultUserData.company.catchPhrase, bs: defaultUserData.company.bs },
+        company: {
+          name: companyNameValue,
+          catchPhrase: defaultUserData.company.catchPhrase,
+          bs: defaultUserData.company.bs,
+        },
       };
-  
+
       console.log(newUser);
       props.onEdit(newUser);
-    }
-     else {
+    } else {
       const newUser = {
         id: props.users.length + 1,
         name: nameValue,
@@ -84,35 +87,13 @@ console.log(props)
         website: websiteValue,
         company: { name: companyNameValue, catchPhrase: "", bs: "" },
       };
-  
+
       console.log(newUser);
       props.onSubmit(newUser);
-    };
-    };
-
-  //   const newUser = {
-  //     id: props.users.length + 1,
-  //     name: nameValue,
-  //     email: emailValue,
-  //     address: {
-  //       street: "",
-  //       suite: "",
-  //       city: "",
-  //       zipcode: "",
-  //       geo: { lat: "", lng: "" },
-  //     },
-  //     phone: "",
-  //     website: websiteValue,
-  //     company: { name: companyNameValue, catchPhrase: "", bs: "" },
-  //   };
-
-  //   console.log(newUser);
-  //   props.onSubmit(newUser);
-  // };
+    }
+  };
 
   const labels = ["Username", "Name", "Email", "Website", "Company name"];
-
-  // useEffect(()=>{valueChangeHandler()},[]);
 
   return (
     <Box
@@ -133,7 +114,6 @@ console.log(props)
       ) : (
         <TextField
           required
-          // defaultValue="100"
           id="name"
           label="Name"
           variant="standard"

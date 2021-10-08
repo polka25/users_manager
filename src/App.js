@@ -146,7 +146,6 @@ function App() {
               onClose={handleClose}
             />
           )}
-          <button onClick={() => deleteUserHandler(1)}>Delete user</button>
         </Route>
         <Route path="/adduser">
           <AddUser users={users} onAddUser={addUserHandler} />
@@ -159,7 +158,7 @@ function App() {
           )}
         </Route>
         <Route path="/edituser/:userId">
-          <EditUser users={users} onEditUser={editUserHandler} />
+          <EditUser onEditUser={editUserHandler} />
         </Route>
       </main>
     </div>

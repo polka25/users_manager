@@ -11,9 +11,6 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 export default function CustomSnackbars(props) {
   return (
     <Stack spacing={2} sx={{ width: "100%" }}>
-      {/* <Button variant="outlined" onClick={handleSnackbarClick}>
-        Open success snackbar
-      </Button> */}
       <Snackbar
         open={props.status}
         autoHideDuration={3000}
