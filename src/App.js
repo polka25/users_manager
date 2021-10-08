@@ -8,6 +8,7 @@ import Home from "./components/pages/Home/Home";
 import AddUser from "./components/pages/AddUser/AddUser";
 import EditUser from "./components/pages/EditUser/EditUser";
 import CustomSnackbars from "./components/common/customSnackBars/CustomSnackBars";
+import { editUser } from "./api/api";
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -29,6 +30,18 @@ function App() {
     userNotEdited: {
       severity: "error",
       message: `Sorry, we couldn't edit the user.`,
+    },
+    userEdited: {
+      severity: "success",
+      message: "The user has been edited",
+    },
+    userNotDeleted: {
+      severity: "error",
+      message: `Sorry, we couldn't delete the user.`,
+    },
+    userDeleted: {
+      severity: "success",
+      message: "The user has been deleted",
     },
   };
 
@@ -84,10 +97,34 @@ function App() {
     try {
       await api.delete(`/users/${name}`);
       const usersList = users.filter((user) => user.name !== name);
+      console.log(usersList);
+      setSnackbarType(snackBarData.userDeleted);
+      setOpen(true);
       setUsers(usersList);
       history.push("/");
     } catch (err) {
       console.log(`Error:${err.message}`);
+      setSnackbarType(snackBarData.userNotDeleted);
+      setOpen(true);
+    }
+  };
+
+  const editUserHandler = (updatedUser) => {
+    try {
+      editUser(updatedUser).then((response) => {
+        setUsers(
+          users.map((user) =>
+            user.id === updatedUser.id ? response.data : user
+          )
+        );
+        setSnackbarType(snackBarData.userEdited);
+        setOpen(true);
+        history.push("/");
+      });
+    } catch (err) {
+      console.log(`Error:${err.message}`);
+      setSnackbarType(snackBarData.userNotEdited);
+      setOpen(true);
     }
   };
 
@@ -121,8 +158,8 @@ function App() {
             />
           )}
         </Route>
-        <Route path="/edituser">
-          <EditUser />
+        <Route path="/edituser/:userId">
+          <EditUser users={users} onEditUser={editUserHandler} />
         </Route>
       </main>
     </div>

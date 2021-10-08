@@ -73,7 +73,11 @@ const UsersTable = (props) => {
                 <TableCell align="right">
                   {/* {editIcon}
                 {deleteIcon} */}
-                  <IconButton component={Link} to="/edituser">
+                  {/* <IconButton component={Link} to={`/edituser/${user.name}`} > */}
+                  <IconButton
+                    component={Link}
+                    to={`/edituser/${user.id}`}
+                  >
                     <EditIcon />
                   </IconButton>
                   <IconButton

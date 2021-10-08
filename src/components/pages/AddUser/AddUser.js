@@ -12,7 +12,7 @@ const AddUser = (props) => {
 
   return (
     <Card>
-      <UserForm users={props.users} onSubmit={props.onAddUser}/>
+      <UserForm users={props.users} onSubmit={props.onAddUser} buttonName='Add user'/>
     </Card>
   );
 };
