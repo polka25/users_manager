@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import useInput from "../hooks/useInput/UseInput";
 import Button from "@material-ui/core/Button";
-import ValidationTextFields from "../components/common/customValidationTextFields/CustomValidationTextFields";
 
 const isNotEmpty = (value) => value.trim() !== "";
 const isEmail = (value) => value.trim() !== "" && value.includes("@");
@@ -19,6 +18,7 @@ const UserForm = (props) => {
   const {
     value: nameValue,
     hasError: nameInputHasError,
+    isTouched:nameInputIsTouched,
     valueChangeHandler: nameChangedHandler,
     inputBlurHandler: nameBlurHandler,
   } = useInput(isNotEmpty, defaultUserData && defaultUserData.name);
@@ -26,18 +26,21 @@ const UserForm = (props) => {
   const {
     value: emailValue,
     hasError: emailInputHasError,
+    isTouched:emailInputIsTouched,
     valueChangeHandler: emailChangeHandler,
     inputBlurHandler: emailBlurHandler,
   } = useInput(isEmail, defaultUserData && defaultUserData.email);
 
   const {
     value: websiteValue,
+    // isTouched:websiteInputIsTouched,
     valueChangeHandler: websiteChangeHandler,
     inputBlurHandler: websiteBlurHandler,
   } = useInput(isNotEmpty, defaultUserData && defaultUserData.website);
 
   const {
     value: companyNameValue,
+    // isTouched:companyNameInputIsTouched,
     valueChangeHandler: companyNameChangeHandler,
     inputBlurHandler: companyNameBlurHandler,
   } = useInput(isNotEmpty, defaultUserData && defaultUserData.company.name);
@@ -93,8 +96,8 @@ const UserForm = (props) => {
     }
   };
 
-  const labels = ["Username", "Name", "Email", "Website", "Company name"];
-
+  const disableButtonCondition=(!(emailInputIsTouched||nameInputIsTouched)||(nameInputHasError||emailInputHasError));
+console.log(nameInputIsTouched);
   return (
     <Box
       component="form"
@@ -109,32 +112,28 @@ const UserForm = (props) => {
       autoComplete="off"
       onSubmit={submitBoxHandler}
     >
-      {nameInputHasError ? (
-        <ValidationTextFields defaultValue={labels[1]} />
-      ) : (
-        <TextField
-          required
-          id="name"
-          label="Name"
-          variant="standard"
-          value={nameValue}
-          onChange={nameChangedHandler}
-          onBlur={nameBlurHandler}
-        />
-      )}
-      {emailInputHasError ? (
-        <ValidationTextFields defaultValue={labels[2]} />
-      ) : (
-        <TextField
-          required
-          id="email"
-          label="Email"
-          variant="standard"
-          value={emailValue}
-          onChange={emailChangeHandler}
-          onBlur={emailBlurHandler}
-        />
-      )}
+      <TextField
+        error={nameInputHasError}
+        required
+        id="name"
+        label="Name"
+        variant="standard"
+        value={nameValue}
+        onChange={nameChangedHandler}
+        onBlur={nameBlurHandler}
+      />
+
+      <TextField
+        error={emailInputHasError}
+        required
+        id="email"
+        label="Email"
+        variant="standard"
+        value={emailValue}
+        onChange={emailChangeHandler}
+        onBlur={emailBlurHandler}
+      />
+
       <TextField
         id="website"
         label="Website"
@@ -151,7 +150,9 @@ const UserForm = (props) => {
         onChange={companyNameChangeHandler}
         onBlur={companyNameBlurHandler}
       />
-      <Button type="submit">{props.buttonName}</Button>
+      <Button disabled={disableButtonCondition} type="submit">
+        {props.buttonName}
+      </Button>
     </Box>
   );
 };
