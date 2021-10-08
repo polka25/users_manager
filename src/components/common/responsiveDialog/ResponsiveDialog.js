@@ -18,12 +18,9 @@ export default function ResponsiveDialog(props) {
   };
 
   const handleDelete = (user) => {
-    console.log(user);
     onDelete(user);
     onClose();
   };
-
-  console.log(user);
 
   return (
     <div>
@@ -36,7 +33,7 @@ export default function ResponsiveDialog(props) {
         <DialogTitle id="responsive-dialog-title">Are you sure?</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete {user}?
+            Are you sure you want to delete {user.name}?
           </DialogContentText>
         </DialogContent>
         <DialogActions>

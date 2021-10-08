@@ -4,10 +4,9 @@ import UsersTable from "../../UsersTable";
 import CircularIndeterminate from "../../common/customCircularIndeterminate/CustomCircularIndeterminate";
 
 const Home = (props) => {
-  const deleteHandler = (userName) => {
-    console.log("delete Handler from Home");
-    console.log(userName);
-    props.onDelete(userName);
+  const deleteHandler = (user) => {
+    const userId = user.id;
+    props.onDelete(userId);
   };
 
   return (

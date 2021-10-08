@@ -13,12 +13,18 @@ const UserForm = (props) => {
   const defaultUserData = props.editedUser;
   console.log("editedUser:");
   console.log(props.editedUser);
+
+  console.log("defaultUserData");
   console.log(defaultUserData);
+
+  if (!defaultUserData) {
+    console.log("dziala!!!!!!!!");
+  }
 
   const {
     value: nameValue,
     hasError: nameInputHasError,
-    isTouched:nameInputIsTouched,
+    isTouched: nameInputIsTouched,
     valueChangeHandler: nameChangedHandler,
     inputBlurHandler: nameBlurHandler,
   } = useInput(isNotEmpty, defaultUserData && defaultUserData.name);
@@ -26,7 +32,7 @@ const UserForm = (props) => {
   const {
     value: emailValue,
     hasError: emailInputHasError,
-    isTouched:emailInputIsTouched,
+    isTouched: emailInputIsTouched,
     valueChangeHandler: emailChangeHandler,
     inputBlurHandler: emailBlurHandler,
   } = useInput(isEmail, defaultUserData && defaultUserData.email);
@@ -96,8 +102,12 @@ const UserForm = (props) => {
     }
   };
 
-  const disableButtonCondition=(!(emailInputIsTouched||nameInputIsTouched)||(nameInputHasError||emailInputHasError));
-console.log(nameInputIsTouched);
+  const disableButtonCondition = defaultUserData
+    ? nameInputHasError || emailInputHasError
+    : !(emailInputIsTouched && nameInputIsTouched) ||
+      nameInputHasError ||
+      emailInputHasError;
+
   return (
     <Box
       component="form"

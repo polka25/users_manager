@@ -25,10 +25,8 @@ const UsersTable = (props) => {
   });
 
   const handleResponsiveDialogClickOpen = (user) => {
-    console.log(user);
     setUserToBeDeleted(user);
     setOpenResponsiveDialog(true);
-    console.log(openResponsiveDialog);
     return user;
   };
 
@@ -36,26 +34,27 @@ const UsersTable = (props) => {
     setOpenResponsiveDialog(false);
   };
 
-  const handleResponsiveDialogDelete = (userName) => {
-    props.onDelete(userName);
-    console.log("onDelete from usersTable");
-    console.log(userName);
+  const handleResponsiveDialogDelete = (user) => {
+    props.onDelete(user);
   };
 
-  const paginationHandler = useCallback(
-    (page, rowsPerPage) => {
-      console.log(page);
-      setPaginationData({ pageNumber: page, numberOfRows: rowsPerPage });
-      console.log(paginationData.pageNumber);
-    },
-    [paginationData.pageNumber]
-  );
+  const paginationHandler = useCallback((page, rowsPerPage) => {
+    setPaginationData({ pageNumber: page, numberOfRows: rowsPerPage });
+  }, []);
+
+  const emptyRows =
+    paginationData.numberOfRows -
+    Math.min(
+      paginationData.numberOfRows,
+      props.users.length -
+        paginationData.pageNumber * paginationData.numberOfRows
+    );
 
   return (
     <Fragment>
       <ResponsiveDialog
         open={openResponsiveDialog}
-        user={userToBeDeleted.name}
+        user={userToBeDeleted}
         onClose={handleResponsiveDialogClose}
         onDelete={handleResponsiveDialogDelete}
       />
@@ -79,6 +78,7 @@ const UsersTable = (props) => {
               )
               .map((user) => (
                 <TableRow
+                style={{height:80}}
                   key={user.id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
@@ -100,6 +100,11 @@ const UsersTable = (props) => {
                   </TableCell>
                 </TableRow>
               ))}
+            {emptyRows > 0 && (
+              <TableRow style={{ height: 80 * emptyRows }}>
+                <TableCell colSpan={6} />
+              </TableRow>
+            )}
           </TableBody>
         </Table>
         <CustomPagination
